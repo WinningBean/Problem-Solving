@@ -1,7 +1,7 @@
 class Solution {
-    static final int GENERAL_POWER = 5;
-    static final int SOLDIER_POWER = 3;
-    static final int WORKER_POWER = 1;
+    private static final int GENERAL_POWER = 5;
+    private static final int SOLDIER_POWER = 3;
+    private static final int WORKER_POWER = 1;
 
     public int solution(int hp) {
         int answer = 0;
