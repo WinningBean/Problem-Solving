@@ -1,19 +1,19 @@
-class Solution {
-    private static final int GENERAL_POWER = 5;
-    private static final int SOLDIER_POWER = 3;
-    private static final int WORKER_POWER = 1;
+enum AntArmy {
+    GENERAL(5), SOLDIER(3), WORKER(1);
+    private final int power;
+    AntArmy(int power) { this.power = power; }
+    public int getPower() { return power; }
+}
 
+class Solution {
     public int solution(int hp) {
         int answer = 0;
 
-        answer += hp / GENERAL_POWER;
-        hp %= GENERAL_POWER;
-
-        answer += hp / SOLDIER_POWER;
-        hp %= SOLDIER_POWER;
-
-        answer += hp / WORKER_POWER;
-        hp %= WORKER_POWER;
+        for (AntArmy antArmy : AntArmy.values()) {
+            int power = antArmy.getPower();
+            answer += hp / power;
+            hp %= power;
+        }
         
         return answer;
     }
