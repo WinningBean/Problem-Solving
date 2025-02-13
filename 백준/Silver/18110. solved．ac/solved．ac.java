@@ -53,7 +53,7 @@ class Main {
         int needDeleteOpinion = deleteOpinion;
 
         for (int i = 1; i <= MAX_DIFFICULTY; i++) {
-            if (difficultyOpinions[i] / needDeleteOpinion > 0) {
+            if (difficultyOpinions[i] > needDeleteOpinion) {
                 difficultyOpinions[i] -= needDeleteOpinion;
                 needDeleteOpinion = 0;
                 return;
@@ -68,7 +68,7 @@ class Main {
         int needDeleteOpinion = deleteOpinion;
 
         for (int i = MAX_DIFFICULTY; i > 0; i--) {
-            if (difficultyOpinions[i] / needDeleteOpinion > 0) {
+            if (difficultyOpinions[i] > needDeleteOpinion) {
                 difficultyOpinions[i] -= needDeleteOpinion;
                 needDeleteOpinion = 0;
                 return;
