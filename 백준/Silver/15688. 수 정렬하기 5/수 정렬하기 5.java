@@ -16,11 +16,9 @@ class Main {
             numStates[Integer.parseInt(br.readLine()) + MAX_ABS_NUM]++;
         }
 
-        int outLine = 0;
         for (int i = 0; i < numStates.length; i++) {
             for (int j = 0; j < numStates[i]; j++) {
                 sb.append(i - MAX_ABS_NUM).append("\n");
-                if (outLine++ == N) break;
             }
         }
 
