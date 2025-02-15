@@ -24,11 +24,11 @@ class Main {
             String problem = br.readLine();
             String answer = "";
 
-            if (pokemonMap.containsKey(problem)) {
-                answer = pokemonMap.get(problem).toString();
-            } else {
+            if (Character.isDigit(problem.charAt(0))) {
                 int pokemonNum = Integer.parseInt(problem);
                 answer = pokemonArr[pokemonNum];
+            } else {
+                answer = pokemonMap.get(problem).toString();
             }
 
             sb.append(answer)
