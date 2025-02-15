@@ -1,0 +1,18 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
+        String str = br.readLine();
+        for (char letter : str.toCharArray()) {
+            sb.append(Character.isUpperCase(letter) ? Character.toLowerCase(letter) : Character.toUpperCase(letter));
+        }
+
+        System.out.println(sb);
+        br.close();
+    }
+}
