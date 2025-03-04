@@ -9,21 +9,19 @@ class Main {
         StringBuilder sb = new StringBuilder();
 
         final int RANGE = 20000001;
+        final int HALF_RANGE = 10000000;
 
         boolean[] haveCards = new boolean[RANGE];
 
-        int N = Integer.parseInt(br.readLine());
+        String N = br.readLine();
         int[] cards = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         for (int card : cards) {
-            if (card < 0) card += RANGE;
-            haveCards[card] = true;
+            haveCards[card + HALF_RANGE] = true;
         }
-
-        int M = Integer.parseInt(br.readLine());
+        String M = br.readLine();
         int[] nums = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         for (int num : nums) {
-            if (num < 0) num += RANGE;
-            sb.append(haveCards[num] ? "1 " : "0 "); 
+            sb.append(haveCards[num + HALF_RANGE] ? "1 " : "0 "); 
         }
 
         System.out.println(sb);
