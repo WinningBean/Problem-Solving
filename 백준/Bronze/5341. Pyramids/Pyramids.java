@@ -8,9 +8,7 @@ class Main {
 
         int n;
         while ((n = Integer.parseInt(br.readLine())) > 0) {
-            int result = (n + 1) * (n / 2);
-            if (n % 2 == 1) result += (n + 1) / 2;
-            sb.append(result).append("\n");
+            sb.append(n * (n + 1) / 2).append("\n");
         }
 
         System.out.print(sb);
