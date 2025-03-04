@@ -14,7 +14,11 @@ class Main {
             else peopleSet.remove(personInfo[0]);
         }
 
-        peopleSet.stream().sorted(Collections.reverseOrder()).forEach(s -> sb.append(s).append("\n"));
+        List<String> peopleList = new ArrayList<>(peopleSet);
+        peopleList.sort(Collections.reverseOrder());
+        for (String person : peopleList) {
+            sb.append(person).append("\n");
+        }
 
         System.out.print(sb);
         br.close();
