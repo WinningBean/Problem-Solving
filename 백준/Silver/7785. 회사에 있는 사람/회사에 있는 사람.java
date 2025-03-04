@@ -6,17 +6,16 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
-        Set<String> peopleSet = new HashSet<>();
+        TreeSet<String> people = new TreeSet<>(Collections.reverseOrder());
+
         int n = Integer.parseInt(br.readLine());
         while (n-- > 0) {
             String[] personInfo = br.readLine().split(" ");
-            if (personInfo[1].equals("enter")) peopleSet.add(personInfo[0]);
-            else peopleSet.remove(personInfo[0]);
+            if (personInfo[1].equals("enter")) people.add(personInfo[0]);
+            else people.remove(personInfo[0]);
         }
 
-        List<String> peopleList = new ArrayList<>(peopleSet);
-        peopleList.sort(Collections.reverseOrder());
-        for (String person : peopleList) {
+        for (String person : people) {
             sb.append(person).append("\n");
         }
 
