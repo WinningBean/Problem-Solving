@@ -8,22 +8,28 @@ class Solution {
         int sum = 0;
         
         while (startIdx < maxLength) {
-            while (sum < k && endIdx < maxLength) {
+            if (sum < k && endIdx < maxLength) {
                 sum += sequence[endIdx++];
             }
             
-            int nowLength = endIdx - startIdx;
-            if (sum == k && answerLength > nowLength) {
-                answer[0] = startIdx;
-                answer[1] = endIdx - 1;
-                
-                answerLength = nowLength;
-                if (answerLength == 1) {
-                    break;
+            if (sum >= k) {
+                if (sum == k) {
+                    int nowLength = endIdx - startIdx;
+                    
+                    if (answerLength > nowLength) {
+                        answer[0] = startIdx;
+                        answer[1] = endIdx - 1;
+
+                        answerLength = nowLength;
+                        if (answerLength == 1) {
+                            break;
+                        }
+                    }
                 }
+                sum -= sequence[startIdx++];
+            } else if (endIdx == maxLength && sum < k) {
+                break;
             }
-            
-            sum -= sequence[startIdx++];
         }
         
         return answer;
