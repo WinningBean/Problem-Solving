@@ -7,7 +7,7 @@ class Solution {
         int startIdx = 0, endIdx = 0;
         int sum = 0;
         
-        while (startIdx < maxLength) {
+        while (true) {
             if (sum >= k) {
                 if (sum == k) {
                     int nowLength = endIdx - startIdx;
