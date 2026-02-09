@@ -7,7 +7,7 @@ class Solution {
         int startIdx = 0, endIdx = 0;
         int sum = 0;
         
-        while (startIdx < maxLength) {
+        while (startIdx < maxLength && (endIdx < maxLength || sum >= k)) {
             if (sum < k && endIdx < maxLength) {
                 sum += sequence[endIdx++];
             }
@@ -27,8 +27,6 @@ class Solution {
                     }
                 }
                 sum -= sequence[startIdx++];
-            } else if (endIdx == maxLength && sum < k) {
-                break;
             }
         }
         
