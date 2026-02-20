@@ -22,18 +22,12 @@ class Main{
         int endIdx = N - 1;
 
         while (startIdx < endIdx) {
-            // 시작점과 끝점이 S보다 클 경우 끝점 위치를 옮긴다
-            while (cows[startIdx] + cows[endIdx] > S) {
+            if (cows[startIdx] + cows[endIdx] > S) {
                 endIdx--;
-
-                if (endIdx == startIdx) {
-                    break;
-                }
+            } else {
+                answer += (endIdx - startIdx);
+                startIdx++;
             }
-
-            // 시작점과 끝점이 S와 같거나 작을 경우 경우의 수 count, 시작점 위치를 옮긴다
-            answer += (endIdx - startIdx);
-            startIdx++;
         }
 
         System.out.print(answer);
