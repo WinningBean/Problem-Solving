@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 class Main{
+    static int[][] combination = new int[31][31];
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -23,10 +25,14 @@ class Main{
     }
 
     static int getCombination(int n, int r) {
-        if (r > 1) {
-            return n * getCombination(n - 1, r - 1) / r;
+        if (n == r || r == 0) {
+            combination[n][r] = 1;
         }
 
-        return n;
+        if (combination[n][r] == 0) {
+            combination[n][r] = getCombination(n - 1, r - 1) + getCombination(n - 1, r);
+        }
+
+        return combination[n][r];
     }
 }
