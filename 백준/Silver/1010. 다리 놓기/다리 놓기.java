@@ -27,10 +27,6 @@ class Main{
             return n * getCombination(n - 1, r - 1) / r;
         }
 
-        int value = 1;
-        for (int i = n; i > n - r; i--) {
-            value *= i;
-        }
-        return value;
+        return n;
     }
 }
