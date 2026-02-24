@@ -19,7 +19,7 @@ class Main{
         Arrays.sort(B);
 
         for (int i = 0; i < N; i++) {
-            answer += A[i] * B[N - i - 1];
+            answer += A[i] * B[N - 1 - i];
         }
 
         System.out.print(answer);
