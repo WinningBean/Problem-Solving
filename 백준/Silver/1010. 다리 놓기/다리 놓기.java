@@ -6,7 +6,7 @@ class Main{
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        
+
         int T = Integer.parseInt(br.readLine());
         while (T-- > 0) {
             String info[] = br.readLine().split(" ");
@@ -22,12 +22,12 @@ class Main{
         br.close();
     }
 
-    static long getCombination(int n, int r) {
+    static int getCombination(int n, int r) {
         if (r > 1) {
             return n * getCombination(n - 1, r - 1) / r;
         }
 
-        long value = 1;
+        int value = 1;
         for (int i = n; i > n - r; i--) {
             value *= i;
         }
