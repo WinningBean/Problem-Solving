@@ -22,7 +22,6 @@ class Main{
                 circle[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
             }
 
-
             sb.append(
                 getAnswer(Arrays.copyOfRange(xy, 0, 2),
                     Arrays.copyOfRange(xy, 2, 4),
@@ -41,12 +40,8 @@ class Main{
         int count = 0;
 
         for (int[] c : circle) {
-            int cx = c[0];
-            int cy = c[1];
-            int radiusSquare = getSquare(c[2]);
-
-            boolean isStartIn = isIn(startX, startY, cx, cy, c[2], radiusSquare);
-            boolean isEndIn = isIn(endX, endY, cx, cy, c[2], radiusSquare);
+            boolean isStartIn = isInCirCle(startX, startY, c[0], c[1], c[2]);
+            boolean isEndIn = isInCirCle(endX, endY, c[0], c[1], c[2]);
             
             // 같은 원 안에 있지 않은 경우 카운트
             if (isStartIn != isEndIn) count++;
@@ -56,12 +51,12 @@ class Main{
     }
 
     // 좌표가 원 내부에 있는지 확인 -> 피타고라스 정리 활용
-    static boolean isIn(int x, int y, int cx, int cy, int r, int radiusSquare) {
+    static boolean isInCirCle(int x, int y, int cx, int cy, int r) {
         int centerToX = Math.abs(cx - x);
         int centerToY = Math.abs(cy - y);
 
         if (centerToX > r || centerToY > r) return false;
-        return getSquare(centerToX) + getSquare(centerToY) <= radiusSquare;
+        return getSquare(centerToX) + getSquare(centerToY) <= getSquare(r);
     }
 
     static int getSquare(int n) {
