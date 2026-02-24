@@ -52,14 +52,12 @@ class Main{
 
     // 좌표가 원 내부에 있는지 확인 -> 피타고라스 정리 활용
     static boolean isInCirCle(int x, int y, int cx, int cy, int r) {
-        int centerToX = Math.abs(cx - x);
-        int centerToY = Math.abs(cy - y);
-
-        if (centerToX > r || centerToY > r) return false;
-        return getSquare(centerToX) + getSquare(centerToY) <= getSquare(r);
+        return Math.pow(cx - x, 2) + Math.pow(cy - y, 2) <= Math.pow(r, 2);
     }
 
     static int getSquare(int n) {
+        Math.pow(n, 2);
+
         if (square[n] == 0) {
             square[n] = n * n;
         }
