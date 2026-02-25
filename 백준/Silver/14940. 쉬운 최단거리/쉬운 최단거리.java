@@ -7,7 +7,6 @@ import java.util.Queue;
 class Main{
     static int width, heigth;
     static int[][] map, distanceMap;
-    static boolean[][] visited;
     static int destinationX, destinationY;
 
     public static void main(String[] args) throws IOException {
@@ -22,7 +21,6 @@ class Main{
         heigth = m;
         map = new int[n][m];
         distanceMap = new int[n][m];
-        visited = new boolean[n][m];
         for (int i = 0; i < n; i++) {
             String[] line = br.readLine().split(" ");
             for (int j = 0; j < m; j++) {
@@ -55,7 +53,7 @@ class Main{
         int[] dx = {0, 1, 0, -1}, dy = {1, 0, -1, 0};
 
         Queue<Point> queue = new LinkedList<>();
-        visited[destinationX][destinationY] = true;
+        distanceMap[destinationX][destinationY] = 0;
         queue.add(new Point(destinationX, destinationY));
 
         while (!queue.isEmpty()) {
@@ -65,10 +63,10 @@ class Main{
             int nextDistance = distanceMap[x][y] + 1;
             for (int i = 0; i < 4; i++) {
                 int nextX = x + dx[i], nextY = y + dy[i];
-                if (!isInMap(nextX, nextY) || visited[nextX][nextY] || map[nextX][nextY] == 0) continue;
-                visited[nextX][nextY] = true;
-                distanceMap[nextX][nextY] = nextDistance;
-                queue.add(new Point(nextX, nextY));
+                if (isInMap(nextX, nextY) && distanceMap[nextX][nextY] == -1) {
+                    distanceMap[nextX][nextY] = nextDistance;
+                    queue.add(new Point(nextX, nextY));
+                }
             }
         }
 
