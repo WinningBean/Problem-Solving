@@ -10,13 +10,21 @@ class Main{
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        int[] coordinates = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        String[] coordinateStr = br.readLine().split(" ");
+        int[] coordinates = new int[N];
+        for (int i = 0; i < N; i++) {
+            coordinates[i] = Integer.parseInt(coordinateStr[i]);
+        }
 
-        // 중복을 없애고 order
-        int[] orderedCoordinates = Arrays.stream(coordinates).distinct().sorted().toArray();
+        int[] orderedCoordinates = coordinates.clone();
+        Arrays.sort(orderedCoordinates);
+
+        int order = 0;
         HashMap<Integer, Integer> coordinatesOrderMap = new HashMap<>();
-        for (int i = 0; i < orderedCoordinates.length; i++) {
-            coordinatesOrderMap.put(orderedCoordinates[i], i);
+        for (int i = 0; i < N; i++) {
+            if (!coordinatesOrderMap.containsKey(orderedCoordinates[i])) {
+                coordinatesOrderMap.put(orderedCoordinates[i], order++);
+            }
         }
 
         for (int coordinate : coordinates) {
