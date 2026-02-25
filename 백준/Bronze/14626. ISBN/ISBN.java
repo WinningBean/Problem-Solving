@@ -16,8 +16,7 @@ class Main{
             if (ISBN[i] == '*') {
                 damagedMultiply = multiply;
             } else {
-                int num = ISBN[i] - '0';
-                sum += multiply * num;
+                sum += multiply * (ISBN[i] - '0');
             }
         }
 
