@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 class Main{
-    static int width, heigth;
     static int[][] map, distanceMap;
-    static int destinationX, destinationY;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,8 +15,7 @@ class Main{
         String[] nm = br.readLine().split(" ");
         int n = Integer.parseInt(nm[0]);
         int m = Integer.parseInt(nm[1]);
-        width = n;
-        heigth = m;
+        int destinationX = 0, destinationY = 0;
         map = new int[n][m];
         distanceMap = new int[n][m];
         for (int i = 0; i < n; i++) {
@@ -30,12 +27,13 @@ class Main{
                 } else if (map[i][j] == 2) {
                     destinationX = i;
                     destinationY = j;
+                    distanceMap[i][j] = 0;
                 }
             }
         }
 
         // 구현
-        int[][] distanceMap = getDistanceMap();
+        int[][] distanceMap = getDistanceMap(destinationX, destinationY);
 
         // 출력
         for (int[] line : distanceMap) {
@@ -49,23 +47,22 @@ class Main{
         br.close();
     }
 
-    static int[][] getDistanceMap() {
+    static int[][] getDistanceMap(int destinationX, int destinationY) {
         int[] dx = {0, 1, 0, -1}, dy = {1, 0, -1, 0};
 
-        Queue<Point> queue = new LinkedList<>();
-        distanceMap[destinationX][destinationY] = 0;
-        queue.add(new Point(destinationX, destinationY));
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{destinationX, destinationY});
 
         while (!queue.isEmpty()) {
-            Point point = queue.poll();
-            int x = point.x, y = point.y;
+            int[] xy = queue.poll();
+            int x = xy[0], y = xy[1];
 
             int nextDistance = distanceMap[x][y] + 1;
             for (int i = 0; i < 4; i++) {
                 int nextX = x + dx[i], nextY = y + dy[i];
                 if (isInMap(nextX, nextY) && distanceMap[nextX][nextY] == -1) {
                     distanceMap[nextX][nextY] = nextDistance;
-                    queue.add(new Point(nextX, nextY));
+                    queue.add(new int[]{nextX, nextY});
                 }
             }
         }
@@ -75,17 +72,7 @@ class Main{
 
     static boolean isInMap(int x, int y) {
         if (x < 0 || y < 0) return false;
-        if (x >= width || y >= heigth) return false;
+        if (x >= map.length || y >= map[0].length) return false;
         return true;
-    }
-}
-
-class Point {
-    int x;
-    int y;
-
-    Point(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 }
