@@ -19,7 +19,7 @@ class Main{
         meetingMinHourMap = new HashMap<>();
         maxMeeingMap = new HashMap<>();
         quickMeetingMap = new HashMap<>();
-        for (int i = 0; i < N; i++) {
+        while (N-- > 0) {
             String[] info = br.readLine().split(" ");
             int start = Integer.parseInt(info[0]), end = Integer.parseInt(info[1]);
             if (maxStartHour < start) maxStartHour = start;
