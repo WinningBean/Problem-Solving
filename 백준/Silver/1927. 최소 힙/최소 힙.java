@@ -22,10 +22,6 @@ class Main{
         System.out.print(sb);
         br.close();
     }
-
-    static void addMinHeap(int num) {
-
-    }
 }
 
 class MinHeap {
