@@ -29,19 +29,17 @@ class Main{
 }
 
 class MinHeap {
-    int maxSize;
-    int heapSize = 0;
+    int size = 0;
     int[] heap;
 
-    MinHeap (int maxSize) {
-        this.maxSize = maxSize;
-        this.heap = new int[maxSize + 1];
+    MinHeap (int size) {
+        this.heap = new int[size + 1];
     }
 
     void insert(int num) {
-        heap[++heapSize] = num;
+        heap[++size] = num;
 
-        for (int i = heapSize; i > 1; i /= 2) {
+        for (int i = size; i > 1; i /= 2) {
             int parentsIdx = i / 2;
             if (heap[parentsIdx] > heap[i]) swap(parentsIdx, i);
             else break;
@@ -49,24 +47,20 @@ class MinHeap {
     }
 
     int delete() {
-        if (heapSize == 0) return 0;
+        if (size == 0) return 0;
         int num = heap[1];
 
-        heap[1] = heap[heapSize];
-        heap[heapSize--] = 0;
+        heap[1] = heap[size];
+        heap[size--] = 0;
 
-        for (int i = 1; i * 2 <= heapSize;) {            
+        for (int i = 1; i * 2 <= size;) {            
             int leftChildIdx = i * 2, rightChildIdx = leftChildIdx + 1;
-            if (heapSize == leftChildIdx && heap[i] <= heap[leftChildIdx]) break;
-            if (heap[i] <= heap[leftChildIdx] && heap[i] <= heap[rightChildIdx]) break;
+            int swapIdx = size == leftChildIdx || heap[leftChildIdx] < heap[rightChildIdx] ? leftChildIdx : rightChildIdx;
 
-            if (heapSize == leftChildIdx || heap[leftChildIdx] < heap[rightChildIdx]) {
-                swap(i, leftChildIdx);
-                i = leftChildIdx;
-            } else {
-                swap(i, rightChildIdx);
-                i = rightChildIdx;
-            }
+            if (heap[i] <= heap[swapIdx]) break;
+
+            swap(i, swapIdx);
+            i = swapIdx;
         }
 
         return num;
