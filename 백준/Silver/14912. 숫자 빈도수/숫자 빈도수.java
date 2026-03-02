@@ -18,15 +18,15 @@ class Main{
         // 1의 자릿수 이전까지 계산
         for (int i = 0; i < digit - 1; i++) {
             int num = nArr[i] - '0';
-            int nowDisit = digit - i;
+            int nowDigit = digit - i;
 
             // 현재 자릿수에서 한 숫자가 나오는 빈도수
-            int frequency = (nowDisit - 1) * (int) Math.pow(10, nowDisit - 2);
+            int frequency = (nowDigit - 1) * (int) Math.pow(10, nowDigit - 2);
             // 현재 자릿수의 숫자만큼 빈도수가 나온다.
             count += num * frequency;
             // 앞자리가 0인 경우는 없으므로 d가 0인 경우 다음 자릿수 * 10만큼 제외
             if (isZero) {
-                count -= (int) Math.pow(10, nowDisit - 2);
+                count -= (int) Math.pow(10, nowDigit - 2);
             }
 
             if (num == d) {
@@ -35,7 +35,7 @@ class Main{
             } else if (num > d && (!isZero || (isZero && i > 0))) {
                 // 현재 자릿수가 d보다 크면 해당 자릿수 크기만큼 count
                 // 앞자리가 0인 경우는 없으므로 d가 0인 경우 맨 앞 자릿수는 제외
-                count += (int) Math.pow(10, nowDisit - 1);
+                count += (int) Math.pow(10, nowDigit - 1);
             }
         }
 
