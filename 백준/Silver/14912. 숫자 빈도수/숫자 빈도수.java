@@ -28,14 +28,14 @@ class Main{
             if (isZero) {
                 count -= (int) Math.pow(10, nowDisit - 2);
             }
-        
-            if (num > d && (!isZero || (isZero && i > 0))) {
+
+            if (num == d) {
+                // 현재 자릿수가 d와 같다면 그 아래 수만큼 count + 1(0 count)
+                count += Integer.parseInt(new String(Arrays.copyOfRange(nArr, i + 1, digit))) + 1;
+            } else if (num > d && (!isZero || (isZero && i > 0))) {
                 // 현재 자릿수가 d보다 크면 해당 자릿수 크기만큼 count
                 // 앞자리가 0인 경우는 없으므로 d가 0인 경우 맨 앞 자릿수는 제외
                 count += (int) Math.pow(10, nowDisit - 1);
-            } else if (num == d) {
-                // 현재 자릿수가 d와 같다면 그 아래 수만큼 count + 1(0 count)
-                count += Integer.parseInt(new String(Arrays.copyOfRange(nArr, i + 1, digit))) + 1;
             }
         }
 
