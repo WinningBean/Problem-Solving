@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 class Main{
-    static int[] ground = new int[257];
-    static int inventory = 0;
-    static int time = 0;
-    static int minLevel = 256, maxLevel = 0;
+    static final int MAX_GROUND_LEVEL = 256;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,8 +11,10 @@ class Main{
 
         String[] input = br.readLine().split(" ");
         int N = Integer.parseInt(input[0]);
-        int M = Integer.parseInt(input[1]);
-        inventory = Integer.parseInt(input[2]);
+        int B = Integer.parseInt(input[2]);
+
+        int[] ground = new int[MAX_GROUND_LEVEL + 1];
+        int minLevel = MAX_GROUND_LEVEL, maxLevel = 0;
 
         for (int i = 0; i < N; i++) {
             String[] blocks = br.readLine().split(" ");
@@ -27,46 +26,40 @@ class Main{
             }
         }
 
-        makeGroundFlat(N * M);
+        int minTime = Integer.MAX_VALUE;
+        int flatLevel = 0;
 
-        sb.append(time).append(" ").append(maxLevel);
+        // 만들어 질 수 있는 모든 레벨
+        for (int nowLevel = minLevel; nowLevel <= maxLevel; nowLevel++) {
+            int nowTime = 0;
+            int nowInventory = B;
+
+            // 가장 낮은 레벨부터 현재 레벨 전까지
+            for (int lowLevel = minLevel; lowLevel < nowLevel; lowLevel++) {
+                int addBlocks = (nowLevel - lowLevel) * ground[lowLevel];
+                nowTime += addBlocks;
+                nowInventory -= addBlocks;
+            }
+
+            // 다음 레벨부터 가장 높은 레벨까지
+            for (int highLevel = nowLevel + 1; highLevel <=maxLevel; highLevel++) {
+                int removeBlocks = (highLevel - nowLevel) * ground[highLevel];
+                nowTime += removeBlocks * 2;
+                nowInventory += removeBlocks;
+            }
+
+            // 현재 레벨로 만들기 위한 블록이 충분하지 않다면 다음 레벨 체크
+            if (nowInventory < 0) continue;
+            
+            if (nowTime <= minTime) {
+                minTime = nowTime;
+                flatLevel = nowLevel;
+            }
+        }
+
+        sb.append(minTime).append(" ").append(flatLevel);
 
         System.out.print(sb);
         br.close();
-    }
-
-    static void makeGroundFlat(int groundSize) {
-        while (ground[maxLevel] < groundSize) {
-            int work1Time = ground[maxLevel] * 2;
-            int work2Time = ground[minLevel];
-
-            // inventory가 work2Time(minLevel 블록 수)보다 같거나 많고
-            // work2Time이 work1Time보다 같거나 작으면 work2
-            if (inventory >= work2Time && work2Time <= work1Time) {
-                work2();
-                time += work2Time;
-            } else {
-                work1();
-                time += work1Time;
-            }
-        }
-    }
-
-    static void work1() {
-        // maxLevel 블록 수만큼 inventory 채우고 maxLevel 낮추기
-        int maxLevelLength = ground[maxLevel];
-        inventory += maxLevelLength;
-        ground[maxLevel - 1] += maxLevelLength;
-        ground[maxLevel] = 0;
-        maxLevel--;
-    }
-
-    static void work2() {
-        // minLevel 블록 수만큼 inventory 바우고 minLevel 높이기
-        int minLevelLength = ground[minLevel];
-        inventory -= minLevelLength;
-        ground[minLevel + 1] += minLevelLength;
-        ground[minLevel] = 0;
-        minLevel++;
     }
 }
