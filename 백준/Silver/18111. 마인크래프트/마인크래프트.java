@@ -16,7 +16,7 @@ class Main{
         int N = Integer.parseInt(input[0]);
         int M = Integer.parseInt(input[1]);
         inventory = Integer.parseInt(input[2]);
-        
+
         for (int i = 0; i < N; i++) {
             String[] blocks = br.readLine().split(" ");
             for (String block : blocks) {
@@ -40,28 +40,32 @@ class Main{
             int work1Time = ground[maxLevel] * 2;
             int work2Time = ground[minLevel];
 
+            // inventory가 work2Time(minLevel 블록 수)보다 같거나 많고
+            // work2Time이 work1Time보다 같거나 작으면 work2
             if (inventory >= work2Time && work2Time <= work1Time) {
                 work2();
+                time += work2Time;
             } else {
                 work1();
+                time += work1Time;
             }
         }
     }
 
     static void work1() {
+        // maxLevel 블록 수만큼 inventory 채우고 maxLevel 낮추기
         int maxLevelLength = ground[maxLevel];
         inventory += maxLevelLength;
         ground[maxLevel - 1] += maxLevelLength;
-        time += maxLevelLength * 2;
         ground[maxLevel] = 0;
         maxLevel--;
     }
 
     static void work2() {
+        // minLevel 블록 수만큼 inventory 바우고 minLevel 높이기
         int minLevelLength = ground[minLevel];
         inventory -= minLevelLength;
         ground[minLevel + 1] += minLevelLength;
-        time += minLevelLength;
         ground[minLevel] = 0;
         minLevel++;
     }
