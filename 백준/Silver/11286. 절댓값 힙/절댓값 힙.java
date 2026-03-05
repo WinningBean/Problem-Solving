@@ -29,7 +29,7 @@ class AbsHeap {
     int[] heap;
 
     AbsHeap (int size) {
-        this.heap = new int[size + 1];
+        this.heap = new int[size];
     }
 
     void insert(int num) {
