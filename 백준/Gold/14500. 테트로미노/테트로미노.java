@@ -4,21 +4,21 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 class Main{
-    static int maxX, maxY;
     static int[][] paper;
-
-    static int[][] dx, dy;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String[] NM = br.readLine().split(" ");
-        maxX = Integer.parseInt(NM[0]);
-        maxY = Integer.parseInt(NM[1]);
+        int maxX = Integer.parseInt(NM[0]);
+        int maxY = Integer.parseInt(NM[1]);
 
-        paper = new int[maxX][maxY];
+        paper = new int[maxX + 3][maxY + 3];
         for (int i = 0; i < maxX; i++) {
-            paper[i] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int[] line = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            for (int j = 0; j < maxY; j++) {
+                paper[i][j] = line[j];
+            }
         }
 
         int maxSum = 0;
@@ -40,15 +40,13 @@ class Main{
     static int getTetromino1MaxSum(int x, int y) {
         int maxSum = 0;
 
-        dx = new int[][]{{0, 0, 0, 0}, {0, 1, 2, 3}};
-        dy = new int[][]{{0, 1, 2, 3}, {0, 0, 0, 0}};
+        int[][] dx = {{0, 0, 0, 0}, {0, 1, 2, 3}};
+        int[][] dy = {{0, 1, 2, 3}, {0, 0, 0, 0}};
 
         for (int type = 0; type < dx.length; type++) {
             int sum = 0;
             for (int move = 0; move < 4; move++) {
-                if (isInPaper(x + dx[type][move], y + dy[type][move])) {
-                    sum += paper[x + dx[type][move]][y + dy[type][move]];
-                }
+                sum += paper[x + dx[type][move]][y + dy[type][move]];
             }
             maxSum = Math.max(maxSum, sum);
         }
@@ -60,15 +58,13 @@ class Main{
     static int getTetromino2MaxSum(int x, int y) {
         int maxSum = 0;
 
-        dx = new int[][]{{0, 0, 1, 1}};
-        dy = new int[][]{{0, 1, 0, 1}};
+        int[][] dx = {{0, 0, 1, 1}};
+        int[][] dy = {{0, 1, 0, 1}};
 
         for (int type = 0; type < dx.length; type++) {
             int sum = 0;
             for (int move = 0; move < 4; move++) {
-                if (isInPaper(x + dx[type][move], y + dy[type][move])) {
-                    sum += paper[x + dx[type][move]][y + dy[type][move]];
-                }
+                sum += paper[x + dx[type][move]][y + dy[type][move]];
             }
             maxSum = Math.max(maxSum, sum);
         }
@@ -80,15 +76,13 @@ class Main{
     static int getTetromino3MaxSum(int x, int y) {
         int maxSum = 0;
 
-        dx = new int[][]{{0, 1, 2, 2}, {0, 1, 2, 2}, {0, 0, 1, 2}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 1}, {0, 1, 1, 1}, {0, 1, 1, 1}};
-        dy = new int[][]{{0, 0, 0, 1}, {0, 0, 0, -1}, {0, 1, 0, 0}, {0, 1, 1, 1}, {0, 1, 2, 0}, {0, 1, 2, 2}, {0, 0, 1, 2}, {0, -2, -1, 0}};
+        int[][] dx = {{0, 1, 2, 2}, {0, 1, 2, 2}, {0, 0, 1, 2}, {0, 0, 1, 2}, {0, 0, 0, 1}, {0, 0, 0, 1}, {0, 1, 1, 1}, {0, 1, 1, 1}};
+        int[][] dy = {{0, 0, 0, 1}, {1, 1, 0, 1}, {0, 1, 0, 0}, {0, 1, 1, 1}, {0, 1, 2, 0}, {0, 1, 2, 2}, {0, 0, 1, 2}, {2, 0, 1, 2}};
 
         for (int type = 0; type < dx.length; type++) {
             int sum = 0;
             for (int move = 0; move < 4; move++) {
-                if (isInPaper(x + dx[type][move], y + dy[type][move])) {
-                    sum += paper[x + dx[type][move]][y + dy[type][move]];
-                }
+                sum += paper[x + dx[type][move]][y + dy[type][move]];
             }
             maxSum = Math.max(maxSum, sum);
         }
@@ -100,15 +94,13 @@ class Main{
     static int getTetromino4MaxSum(int x, int y) {
         int maxSum = 0;
 
-        dx = new int[][]{{0, 1, 1, 2}, {0, 1, 1, 2}, {0, 0, 1, 1}, {0, 0, 1, 1}};
-        dy = new int[][]{{0, 0, 1, 1}, {0, -1, 0, -1}, {-1, 0, -2, -1}, {0, 1, 1, 2}};
+        int[][] dx = {{0, 1, 1, 2}, {0, 1, 1, 2}, {0, 0, 1, 1}, {0, 0, 1, 1}};
+        int[][] dy = {{0, 0, 1, 1}, {1, 0, 1, 0}, {1, 2, 0, 1}, {0, 1, 1, 2}};
 
         for (int type = 0; type < dx.length; type++) {
             int sum = 0;
             for (int move = 0; move < 4; move++) {
-                if (isInPaper(x + dx[type][move], y + dy[type][move])) {
-                    sum += paper[x + dx[type][move]][y + dy[type][move]];
-                }
+                sum += paper[x + dx[type][move]][y + dy[type][move]];
             }
             maxSum = Math.max(maxSum, sum);
         }
@@ -120,24 +112,17 @@ class Main{
     static int getTetromino5MaxSum(int x, int y) {
         int maxSum = 0;
 
-        dx = new int[][]{{0, 0, 0, 1}, {0, 1, 1, 1}, {0, 1, 1, 2}, {0, 1, 1, 2}};
-        dy = new int[][]{{0, 1, 2, 1}, {0, -1, 0, 1}, {0, 0, 1, 0}, {0, -1, 0, 0}};
+        int[][] dx = {{0, 0, 0, 1}, {0, 1, 1, 1}, {0, 1, 1, 2}, {0, 1, 1, 2}};
+        int[][] dy = {{0, 1, 2, 1}, {1, 0, 1, 2}, {0, 0, 1, 0}, {1, 0, 1, 1}};
 
         for (int type = 0; type < dx.length; type++) {
             int sum = 0;
             for (int move = 0; move < 4; move++) {
-                if (isInPaper(x + dx[type][move], y + dy[type][move])) {
-                    sum += paper[x + dx[type][move]][y + dy[type][move]];
-                }
+                sum += paper[x + dx[type][move]][y + dy[type][move]];
             }
             maxSum = Math.max(maxSum, sum);
         }
 
         return maxSum;
-    }
-
-    static boolean isInPaper(int x, int y) {
-        if (x < 0 || y < 0 || x >= maxX || y >= maxY) return false;
-        return true;
     }
 }
