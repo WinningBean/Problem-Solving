@@ -52,17 +52,18 @@ class Main {
             }
         }
 
-        return getFromToChars(to, from, prevNums, calcRecords).reverse();
+        return getReverseFromTo(to, from, prevNums, calcRecords);
     }
 
-    static StringBuilder getFromToChars(int from, int to, int[] nextIdxs, char[] chars) {
-        StringBuilder sb = new StringBuilder();
-        
+    static StringBuilder getReverseFromTo(int from, int to, int[] nextIdxs, char[] chars) {
+        char[] buffer = new char[10000];
+        int idx = 10000;
+
         while (from != to) {
-            sb.append(chars[from]);
+            buffer[--idx] = chars[from];
             from = nextIdxs[from];
         }
 
-        return sb;
+        return new StringBuilder().append(buffer, idx, 10000 - idx);
     }
 }
