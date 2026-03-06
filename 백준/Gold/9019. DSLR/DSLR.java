@@ -9,10 +9,10 @@ class Main{
     static final int MIN_NUM = 0;
     static final int MAX_NUM = 9999;
     static IntUnaryOperator[] calcDSLR = {
-        Main::calcD,
-        Main::calcS,
-        Main::calcL,
-        Main::calcR
+        x -> (x * 2) % 10000,
+        x -> (x == MIN_NUM) ? MAX_NUM : x - 1,
+        x -> (x % 1000) * 10 + (x / 1000),
+        x -> (x % 10) * 1000 + (x / 10)
     };
     static char[] calcDSLRnames = {'D', 'S', 'L', 'R'};
 
@@ -54,38 +54,17 @@ class Main{
             }
         }
 
-        return getReverseFromTo(to, from, prevNums, calcRecords);
+        return getFromToChars(to, from, prevNums, calcRecords).reverse();
     }
 
-    static StringBuilder getReverseFromTo(int from, int to, int[] nextIdxs, char[] chars) {
+    static StringBuilder getFromToChars(int from, int to, int[] nextIdxs, char[] chars) {
         StringBuilder sb = new StringBuilder();
         
         while (from != to) {
-            sb.insert(0, chars[from]);
+            sb.append(chars[from]);
             from = nextIdxs[from];
         }
 
         return sb;
-    }
-
-    static int calcD(int num) {
-        num *= 2;
-        if (num > MAX_NUM) {
-            num %= 10000;
-        }
-        return num;
-    }
-    
-    static int calcS(int num) {
-        if (num == MIN_NUM) return MAX_NUM;
-        return --num;
-    }
-
-    static int calcL(int num) {
-        return (num % 1000) * 10 + (num / 1000);
-    }
-
-    static int calcR(int num) {
-        return (num % 10) * 1000 + (num / 10);
     }
 }
