@@ -35,25 +35,37 @@ class Main{
 
     static StringBuilder getMinCalc(int from, int to) {
         Queue<Integer> calcQueue = new LinkedList<>();
-        StringBuilder[] calcRecords = new StringBuilder[10000];
+        char[] calcRecords = new char[10000];
+        int[] prevNums = new int[10000];
 
         calcQueue.add(from);
-        calcRecords[from] = new StringBuilder();
+        calcRecords[from] = '\n';
 
         while (calcQueue.peek() != to) {
             int num = calcQueue.poll();
 
             for (int i = 0; i < 4; i++) {
                 int calcNum = calcDSLR[i].applyAsInt(num);
-                if (calcRecords[calcNum] == null) {
-                    calcRecords[calcNum] = new StringBuilder();
-                    calcRecords[calcNum].append(calcRecords[num]).append(calcDSLRnames[i]);
-                    calcQueue.add(calcNum);
-                }
+                if (calcRecords[calcNum] != '\u0000') continue;
+
+                prevNums[calcNum] = num;
+                calcRecords[calcNum] = calcDSLRnames[i];
+                calcQueue.add(calcNum);
             }
         }
 
-        return calcRecords[to];
+        return getFromToChars(to, from, prevNums, calcRecords).reverse();
+    }
+
+    static StringBuilder getFromToChars(int from, int to, int[] nextIdxs, char[] chars) {
+        StringBuilder sb = new StringBuilder();
+        
+        while (from != to) {
+            sb.append(chars[from]);
+            from = nextIdxs[from];
+        }
+
+        return sb;
     }
 
     static int calcD(int num) {
