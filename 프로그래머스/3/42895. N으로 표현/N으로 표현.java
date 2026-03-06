@@ -68,7 +68,6 @@ class Solution {
     }
     
     private boolean isUseCountMakeTargetNum(int targetNum, int useCount) {
-        
         for (int num : useNumSets[useCount]) {
             if (num == targetNum) {
                 return true;
