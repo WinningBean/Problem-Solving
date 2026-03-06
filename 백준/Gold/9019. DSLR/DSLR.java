@@ -1,16 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.function.IntUnaryOperator;
 
-class Main{
-    static final int MIN_NUM = 0;
-    static final int MAX_NUM = 9999;
+class Main {
     static IntUnaryOperator[] calcDSLR = {
         x -> (x * 2) % 10000,
-        x -> (x == MIN_NUM) ? MAX_NUM : x - 1,
+        x -> (x == 0) ? 9999 : x - 1,
         x -> (x % 1000) * 10 + (x / 1000),
         x -> (x % 10) * 1000 + (x / 10)
     };
@@ -34,7 +32,7 @@ class Main{
     }
 
     static StringBuilder getMinCalc(int from, int to) {
-        Queue<Integer> calcQueue = new LinkedList<>();
+        Queue<Integer> calcQueue = new ArrayDeque<>();
         char[] calcRecords = new char[10000];
         int[] prevNums = new int[10000];
 
