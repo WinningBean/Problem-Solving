@@ -54,14 +54,14 @@ class Main{
             }
         }
 
-        return getFromToChars(to, from, prevNums, calcRecords).reverse();
+        return getReverseFromTo(to, from, prevNums, calcRecords);
     }
 
-    static StringBuilder getFromToChars(int from, int to, int[] nextIdxs, char[] chars) {
+    static StringBuilder getReverseFromTo(int from, int to, int[] nextIdxs, char[] chars) {
         StringBuilder sb = new StringBuilder();
         
         while (from != to) {
-            sb.append(chars[from]);
+            sb.insert(0, chars[from]);
             from = nextIdxs[from];
         }
 
