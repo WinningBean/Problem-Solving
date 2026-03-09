@@ -1,33 +1,32 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 class Main{
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int answer = 0;
-
         int N = Integer.parseInt(br.readLine());
-        Meeting[] meetings = new Meeting[N];
+        ArrayList<Meeting> meetingList = new ArrayList<>();
         for (int i = 0; i < N; i++) {
             String[] info = br.readLine().split(" ");
-            meetings[i] = new Meeting(Integer.parseInt(info[0]), Integer.parseInt(info[1]));
+            meetingList.add(new Meeting(Integer.parseInt(info[0]), Integer.parseInt(info[1])));
         }
 
-        Arrays.sort(meetings);
+        Collections.sort(meetingList);
 
+        int count = 0;
         int endHour = 0;
-        for (Meeting m : meetings) {
+        for (Meeting m : meetingList) {
             if (m.start >= endHour) {
-                answer++;
+                count++;
                 endHour = m.end;
             }
         }
 
-        System.out.print(answer);
+        System.out.print(count);
         br.close();
     }
 }
@@ -43,10 +42,9 @@ class Meeting implements Comparable<Meeting> {
 
     @Override
     public int compareTo(Meeting o) {
-        if (end < o.end) return -1;
-        else if (end > o.end) return 1;
-        else if (start < o.start) return -1;
-        else if (start > o.start) return 1;
-        return 0;
+        if (end == o.end) {
+            return Integer.compare(start, o.start);
+        }
+        return Integer.compare(end, o.end);
     }
 }
