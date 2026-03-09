@@ -22,7 +22,7 @@ class Main {
             if (height % 2 == 0) height = (height / 2) ^ 6;
             else height = (2 * height) ^ 6;
 
-            // 높이 loop 전에 N초에 도달한 경우
+            // 높이 loop 전에 N초에 도달
             if (i == N) break;
 
             if (heightSet.contains(height)) {
@@ -32,7 +32,7 @@ class Main {
                 break;
             }
 
-            // 높이 loop에 도달하지 않았다면 그 전 높이 저장
+            // 높이 loop에 도달하지 않았다면 높이 저장
             heightList.add(height);
             heightSet.add(height);
         }
@@ -43,8 +43,9 @@ class Main {
     
     static private int getSecondsHeight(List<Integer> heightLoopList, int fromSeconds, int toSeconds) {
         int leftSeconds = toSeconds - fromSeconds;
-        // 남은 시간에서 높이 loop에 해당하는 높이 반환
         int loopSeconds = leftSeconds % heightLoopList.size();
+        
+        // 남은 시간에서 높이 loop에 해당하는 높이 반환
         return heightLoopList.get(loopSeconds);
     }
 
