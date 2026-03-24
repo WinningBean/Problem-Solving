@@ -6,16 +6,7 @@ class Main {
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        int year = 2024;
-        int month = 8;
-        for (int i = 1; i < N; i++) {
-            month += 7;
-            if (month > 12) {
-                year++;
-                month -= 12;
-            }
-        }
-        sb.append(year).append(" ").append(month);
+        sb.append(2024 + N * 7 / 12).append(" ").append(N * 7 % 12 + 1);
 
         System.out.print(sb);
         br.close();
